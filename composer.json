@@ -1,0 +1,14 @@
+{
+    "name": "cv/lipsum",
+    "type": "typo3-flow-plugin",
+    "description": "This Neos plugin adds a 'Lorem Ipsum' node type.",
+    "license": "GPL-3.0+",
+    "require": {
+        "typo3/flow": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "CV\\Lipsum": "Classes"
+        }
+    }
+}

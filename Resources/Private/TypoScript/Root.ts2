@@ -1,0 +1,3 @@
+prototype(CV.Lipsum:Text) < prototype(TYPO3.Neos:Content) {
+    @class = 'CV\\Lipsum\\TypoScript\\LipsumImplementation'
+}

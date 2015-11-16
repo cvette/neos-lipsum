@@ -1,0 +1,9 @@
+TYPO3:
+  Neos:
+    typoScript:
+      autoInclude:
+        'CV.Lipsum': TRUE
+    userInterface:
+      translation:
+        autoInclude:
+          'CV.Lipsum': ['NodeTypes/*']

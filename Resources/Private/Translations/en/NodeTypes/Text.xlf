@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file original="" product-name="CV.Lipsum" source-language="en" datatype="plaintext">
+		<body>
+			<trans-unit id="properties.lipsum" xml:space="preserve">
+				<source>Start with "Lorem ipsum dolor sit amet..."</source>
+			</trans-unit>
+			<trans-unit id="properties.wordCount" xml:space="preserve">
+            	<source>Number of Words</source>
+            </trans-unit>
+            <trans-unit id="properties.paragraphCount" xml:space="preserve">
+            	<source>Number of Paragraphs</source>
+            </trans-unit>
+            <trans-unit id="properties.sentencesPerParagraph" xml:space="preserve">
+            	<source>Sentences per Paragraph</source>
+            </trans-unit>
+            <trans-unit id="properties.textAlign" xml:space="preserve">
+            	<source>Text Align</source>
+            </trans-unit>
+            <trans-unit id="properties.textAlign.selectBoxEditor.values.left" xml:space="preserve">
+            	<source>Left</source>
+            </trans-unit>
+            <trans-unit id="properties.textAlign.selectBoxEditor.values.right" xml:space="preserve">
+            	<source>Right</source>
+            </trans-unit>
+            <trans-unit id="properties.textAlign.selectBoxEditor.values.center" xml:space="preserve">
+            	<source>Center</source>
+            </trans-unit>
+            <trans-unit id="properties.textAlign.selectBoxEditor.values.justify" xml:space="preserve">
+            	<source>Justify</source>
+            </trans-unit>
+		</body>
+	</file>
+</xliff>

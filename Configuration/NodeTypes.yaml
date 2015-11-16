@@ -1,0 +1,69 @@
+'CV.Lipsum:Text':
+  superTypes:
+    'TYPO3.Neos:Content': TRUE
+  ui:
+    label: 'Lorem Ipsum'
+    group: 'general'
+    icon: 'icon-align-left'
+    inlineEditable: FALSE
+    inspector:
+      groups:
+        loremipsum:
+          label: 'Lorem Ipsum'
+  properties:
+    lipsum:
+      type: boolean
+      defaultValue: TRUE
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'loremipsum'
+    text:
+      type: string
+      ui:
+        reloadIfChanged: TRUE
+        inlineEditable: FALSE
+    wordCount:
+      type: integer
+      defaultValue: 100
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'loremipsum'
+    paragraphCount:
+      type: integer
+      defaultValue: 1
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'loremipsum'
+    sentencesPerParagraph:
+      type: integer
+      defaultValue: 8
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'loremipsum'
+    textAlign:
+      type: string
+      defaultValue: 'left'
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'loremipsum'
+          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+          editorOptions:
+            values:
+              left:
+                label: i18n
+              right:
+                label: i18n
+              center:
+                label: i18n
+              justify:
+                label: i18n

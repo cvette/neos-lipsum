@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file original="" product-name="CV.Lipsum" source-language="en" datatype="plaintext" target-language="de">
+		<body>
+			<trans-unit id="properties.lipsum" xml:space="preserve">
+				<source>Start with "Lorem ipsum dolor sit amet..."</source>
+				<target xml:lang="de">Starte mit "Lorem ipsum dolor sit amet..."</target>
+			</trans-unit>
+			<trans-unit id="properties.wordCount" xml:space="preserve">
+            	<source>Number of Words</source>
+            	<target xml:lang="de">Anzahl Wörter</target>
+            </trans-unit>
+            <trans-unit id="properties.paragraphCount" xml:space="preserve">
+            	<source>Number of Paragraphs</source>
+            	<target xml:lang="de">Anzahl Absätze</target>
+            </trans-unit>
+            <trans-unit id="properties.sentencesPerParagraph" xml:space="preserve">
+            	<source>Sentences per Paragraph</source>
+            	<target xml:lang="de">Sätze pro Absatz</target>
+            </trans-unit>
+            <trans-unit id="properties.textAlign" xml:space="preserve">
+            	<source>Text Align</source>
+            	<target xml:lang="de">Text Ausrichtung</target>
+            </trans-unit>
+            <trans-unit id="properties.textAlign.selectBoxEditor.values.left" xml:space="preserve">
+            	<source>Left</source>
+            	<target xml:lang="de">Links</target>
+            </trans-unit>
+            <trans-unit id="properties.textAlign.selectBoxEditor.values.right" xml:space="preserve">
+            	<source>Right</source>
+            	<target xml:lang="de">Rechts</target>
+            </trans-unit>
+            <trans-unit id="properties.textAlign.selectBoxEditor.values.center" xml:space="preserve">
+            	<source>Center</source>
+            	<target xml:lang="de">Zentriert</target>
+            </trans-unit>
+            <trans-unit id="properties.textAlign.selectBoxEditor.values.justify" xml:space="preserve">
+            	<source>Justify</source>
+            	<target xml:lang="de">Blocksatz</target>
+            </trans-unit>
+		</body>
+	</file>
+</xliff>
