@@ -4,7 +4,15 @@ namespace CV\Lipsum\TypoScript;
 use TYPO3\Flow\Annotations;
 use TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject;
 
+
+/**
+ * Class LipsumImplementation
+ * @package CV\Lipsum\TypoScript
+ */
 class LipsumImplementation extends AbstractTypoScriptObject {
+
+    const MIN_WORDS_PER_SENTENCE = 4;
+    const MAX_WORDS_PER_SENTENCE = 10;
 
     protected $latinWords =
         array('donec', 'at', 'posuere', 'est', 'in', 'volutpat', 'nam', 'egestas', 'tempus', 'turpis',
@@ -27,12 +35,14 @@ class LipsumImplementation extends AbstractTypoScriptObject {
                 'parturient', 'montes', 'nascetur', 'ridiculus', 'mus', 'tempor', 'sollicitudin', 'fringilla',
                 'elementum', 'sagittis', 'integer');
 
-    const MIN_WORDS_PER_SENTENCE = 4;
-    const MAX_WORDS_PER_SENTENCE = 10;
-
     protected $lastWord = '';
 
-    private function randomWord() {
+
+    /**
+     * Select a random word from array and make sure it isn't used twice in a row
+     * @return string
+     */
+    protected function randomWord() {
         $word = $this->latinWords[rand(0, count($this->latinWords) - 1)];
 
         // make sure next word is different
@@ -43,7 +53,15 @@ class LipsumImplementation extends AbstractTypoScriptObject {
         return $word;
     }
 
-    private function createSentence($length) {
+
+    /**
+     * Create a sentence consisting of randomly selected words
+     * @param $length
+     * @return string
+     */
+    protected function createSentence($length) {
+        $sentence = array();
+
         for($i = 0; $i < $length; $i++) {
             $sentence[] = $this->randomWord();
         }
@@ -51,10 +69,17 @@ class LipsumImplementation extends AbstractTypoScriptObject {
         return ucfirst(implode(' ', $sentence)) . '.';
     }
 
-    private function createSentences($wordCount) {
-        $usedWordsCount = 0;
 
-        if($this->tsValue('lipsum')) {
+    /**
+     * Create an array of sentences with the given word count
+     * @param $wordCount
+     * @return array
+     */
+    protected function createSentences($wordCount, $startLipsum) {
+        $usedWordsCount = 0;
+        $sentences = array();
+
+        if($startLipsum) {
             $sentences[] = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
             $usedWordsCount += 8;
         }
@@ -76,19 +101,16 @@ class LipsumImplementation extends AbstractTypoScriptObject {
         return $sentences;
     }
 
+
     /**
-     * Evaluate this TypoScript object and return the result
-     *
-     * @return mixed
+     * Create a specified number of paragraphs from the given sentences array
+     * @param $sentences
+     * @param $paragraphCount
+     * @param $sentencesPerParagraph
+     * @param $textAlign
+     * @return array
      */
-    public function evaluate() {
-        $wordCount = $this->tsValue('wordCount');
-        $paragraphCount = $this->tsValue('paragraphCount');
-        $sentencesPerParagraph = $this->tsValue('sentencesPerParagraph');
-        $textAlign = $this->tsValue('textAlign');
-
-        $sentences = $this->createSentences($wordCount);
-
+    protected function createParagraphs($sentences, $paragraphCount, $sentencesPerParagraph, $textAlign) {
         $paragraphs = array();
         for($i = 0; $i < $paragraphCount; $i++) {
             $length = $sentencesPerParagraph;
@@ -96,9 +118,26 @@ class LipsumImplementation extends AbstractTypoScriptObject {
                 $length = null;
             }
 
-            $paragraphSentences = array_slice($sentences, $i * $sentencesPerParagraph, $length);
-            $paragraphs[] = '<p style="text-align: ' . $textAlign . ';">' . implode(' ', $paragraphSentences) . '</p>';
+            $paragraphSentences = implode(' ', array_slice($sentences, $i * $sentencesPerParagraph, $length));
+            $paragraphs[] = '<p style="text-align: ' . $textAlign . ';">' . $paragraphSentences . '</p>';
         }
+
+        return $paragraphs;
+    }
+
+    /**
+     * Evaluate this TypoScript object and return the result
+     * @return string
+     */
+    public function evaluate() {
+        $wordCount = $this->tsValue('wordCount');
+        $paragraphCount = $this->tsValue('paragraphCount');
+        $sentencesPerParagraph = $this->tsValue('sentencesPerParagraph');
+        $textAlign = $this->tsValue('textAlign');
+        $startLipsum = $this->tsValue('lipsum');
+
+        $sentences = $this->createSentences($wordCount, $startLipsum);
+        $paragraphs = $this->createParagraphs($sentences, $paragraphCount, $sentencesPerParagraph, $textAlign);
 
         return implode('', $paragraphs);
     }
