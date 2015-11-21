@@ -10,7 +10,6 @@ use TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject;
  * @package CV\Lipsum\TypoScript
  */
 class LipsumImplementation extends AbstractTypoScriptObject {
-
     const MIN_WORDS_PER_SENTENCE = 4;
     const MAX_WORDS_PER_SENTENCE = 10;
 
@@ -37,7 +36,6 @@ class LipsumImplementation extends AbstractTypoScriptObject {
 
     protected $lastWord = '';
 
-
     /**
      * Select a random word from array and make sure it isn't used twice in a row
      * @return string
@@ -53,7 +51,6 @@ class LipsumImplementation extends AbstractTypoScriptObject {
         return $word;
     }
 
-
     /**
      * Create a sentence consisting of randomly selected words
      * @param $length
@@ -62,17 +59,42 @@ class LipsumImplementation extends AbstractTypoScriptObject {
     protected function createSentence($length) {
         $sentence = array();
 
+        $commaPos = rand(3, $length - 4);
         for($i = 0; $i < $length; $i++) {
-            $sentence[] = $this->randomWord();
+            $word = $this->randomWord();
+
+            // 50% chance of adding a comma to sentences longer than 6 words
+            if($i == $commaPos && $length > 6 && rand(0,1) == 1) {
+                $word .= ',';
+            }
+
+            $sentence[] = $word;
         }
 
         return ucfirst(implode(' ', $sentence)) . '.';
     }
 
+    /**
+     * @param $wordCount
+     * @param $usedWordsCount
+     * @return int
+     */
+    protected function getSentenceLength($wordCount, $usedWordsCount) {
+        $length = rand($this::MIN_WORDS_PER_SENTENCE, $this::MAX_WORDS_PER_SENTENCE);
+
+        //If there are less than MIN_WORDS_PER_SENTENCE words left, add them to the current sentence
+        $rest = $wordCount - ($usedWordsCount + $length);
+        if($rest < $this::MIN_WORDS_PER_SENTENCE) {
+            $length += $rest;
+        }
+
+        return $length;
+    }
 
     /**
      * Create an array of sentences with the given word count
      * @param $wordCount
+     * @param $startLipsum
      * @return array
      */
     protected function createSentences($wordCount, $startLipsum) {
@@ -85,14 +107,7 @@ class LipsumImplementation extends AbstractTypoScriptObject {
         }
 
         do {
-            $length = rand($this::MIN_WORDS_PER_SENTENCE, $this::MAX_WORDS_PER_SENTENCE);
-
-            //If there are less than MIN_WORDS_PER_SENTENCE words left, add them to the current sentence
-            $rest = $wordCount - ($usedWordsCount + $length);
-            if($rest < $this::MIN_WORDS_PER_SENTENCE) {
-                $length += $rest;
-            }
-
+            $length = $this->getSentenceLength($wordCount, $usedWordsCount);
             $sentences[] = $this->createSentence($length);
             $usedWordsCount += $length;
 
@@ -100,7 +115,6 @@ class LipsumImplementation extends AbstractTypoScriptObject {
 
         return $sentences;
     }
-
 
     /**
      * Create a specified number of paragraphs from the given sentences array
@@ -114,6 +128,7 @@ class LipsumImplementation extends AbstractTypoScriptObject {
         $paragraphs = array();
         for($i = 0; $i < $paragraphCount; $i++) {
             $length = $sentencesPerParagraph;
+
             if($i == ($paragraphCount - 1)) {
                 $length = null;
             }
