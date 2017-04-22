@@ -1,20 +1,34 @@
 {
-    "name": "cvette/lipsum",
-    "type": "typo3-flow-plugin",
+    "name": "cvette/neos-lipsum",
+    "type": "neos-plugin",
     "description": "This Neos plugin adds a 'Lorem Ipsum' node type.",
     "license": "GPL-3.0+",
-	"keywords": [ "lorem", "ipsum", "neos", "flow" ],
+	"keywords": [ "lorem", "ipsum", "neoscms", "flow" ],
 	"authors": [
-		{
-			"name": "Christian Vette"
-		}
+        {
+            "name": "Christian Vette",
+            "email": "neos@christianvette.de",
+            "homepage": "https://www.christianvette.de",
+            "role": "Developer"
+        }
 	],
 	"require": {
-		"typo3/neos": ">=2.0"
+		"neos/neos": "~3.0.0",
+        "neos/nodetypes": "~3.0.0"
 	},
+    "replace": {
+        "cvette/lipsum": "self.version"
+    },
     "autoload": {
-        "psr-0": {
-            "CV\\Lipsum": "Classes"
+        "psr-4": {
+            "Vette\\Lipsum\\": "Classes"
+        }
+    },
+    "extra": {
+        "marketplace-account": "neos@christianvette.de",
+        "installer-name": "Vette.Lipsum",
+        "neos": {
+            "package-key": "Vette.Lipsum"
         }
     }
 }

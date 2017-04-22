@@ -1,15 +1,13 @@
 <?php
-namespace CV\Lipsum\TypoScript;
+namespace Vette\Lipsum\Fusion;
 
-use TYPO3\Flow\Annotations;
-use TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject;
-
+use Neos\Fusion\FusionObjects\AbstractFusionObject;
 
 /**
- * Class LipsumImplementation
- * @package CV\Lipsum\TypoScript
+ * Lipsum Implementation
  */
-class LipsumImplementation extends AbstractTypoScriptObject {
+class LipsumImplementation extends AbstractFusionObject {
+
     const MIN_WORDS_PER_SENTENCE = 4;
     const MAX_WORDS_PER_SENTENCE = 10;
 
@@ -37,10 +35,30 @@ class LipsumImplementation extends AbstractTypoScriptObject {
     protected $lastWord = '';
 
     /**
-     * Select a random word from array and make sure it isn't used twice in a row
+     * Evaluate this TypoScript object and return the result
      * @return string
      */
-    protected function randomWord() {
+    public function evaluate()
+    {
+        $wordCount = $this->fusionValue('wordCount');
+        $paragraphCount = $this->fusionValue('paragraphCount');
+        $sentencesPerParagraph = $this->fusionValue('sentencesPerParagraph');
+        $textAlign = $this->fusionValue('textAlign');
+        $startLipsum = $this->fusionValue('lipsum');
+
+        $sentences = $this->createSentences($wordCount, $startLipsum);
+        $paragraphs = $this->createParagraphs($sentences, $paragraphCount, $sentencesPerParagraph, $textAlign);
+
+        return implode('', $paragraphs);
+    }
+
+    /**
+     * Select a random word from array and make sure it isn't used twice in a row
+     *
+     * @return string
+     */
+    protected function randomWord()
+    {
         $word = $this->latinWords[rand(0, count($this->latinWords) - 1)];
 
         // make sure next word is different
@@ -53,10 +71,12 @@ class LipsumImplementation extends AbstractTypoScriptObject {
 
     /**
      * Create a sentence consisting of randomly selected words
+     *
      * @param $length
      * @return string
      */
-    protected function createSentence($length) {
+    protected function createSentence($length)
+    {
         $sentence = array();
 
         $commaPos = rand(3, $length - 4);
@@ -79,7 +99,8 @@ class LipsumImplementation extends AbstractTypoScriptObject {
      * @param $usedWordsCount
      * @return int
      */
-    protected function getSentenceLength($wordCount, $usedWordsCount) {
+    protected function getSentenceLength($wordCount, $usedWordsCount)
+    {
         $length = rand($this::MIN_WORDS_PER_SENTENCE, $this::MAX_WORDS_PER_SENTENCE);
 
         //If there are less than MIN_WORDS_PER_SENTENCE words left, add them to the current sentence
@@ -93,11 +114,13 @@ class LipsumImplementation extends AbstractTypoScriptObject {
 
     /**
      * Create an array of sentences with the given word count
+     *
      * @param $wordCount
      * @param $startLipsum
      * @return array
      */
-    protected function createSentences($wordCount, $startLipsum) {
+    protected function createSentences($wordCount, $startLipsum)
+    {
         $usedWordsCount = 0;
         $sentences = array();
 
@@ -118,13 +141,15 @@ class LipsumImplementation extends AbstractTypoScriptObject {
 
     /**
      * Create a specified number of paragraphs from the given sentences array
+     *
      * @param $sentences
      * @param $paragraphCount
      * @param $sentencesPerParagraph
      * @param $textAlign
      * @return array
      */
-    protected function createParagraphs($sentences, $paragraphCount, $sentencesPerParagraph, $textAlign) {
+    protected function createParagraphs($sentences, $paragraphCount, $sentencesPerParagraph, $textAlign)
+    {
         $paragraphs = array();
         for($i = 0; $i < $paragraphCount; $i++) {
             $length = $sentencesPerParagraph;
@@ -138,22 +163,5 @@ class LipsumImplementation extends AbstractTypoScriptObject {
         }
 
         return $paragraphs;
-    }
-
-    /**
-     * Evaluate this TypoScript object and return the result
-     * @return string
-     */
-    public function evaluate() {
-        $wordCount = $this->tsValue('wordCount');
-        $paragraphCount = $this->tsValue('paragraphCount');
-        $sentencesPerParagraph = $this->tsValue('sentencesPerParagraph');
-        $textAlign = $this->tsValue('textAlign');
-        $startLipsum = $this->tsValue('lipsum');
-
-        $sentences = $this->createSentences($wordCount, $startLipsum);
-        $paragraphs = $this->createParagraphs($sentences, $paragraphCount, $sentencesPerParagraph, $textAlign);
-
-        return implode('', $paragraphs);
     }
 }

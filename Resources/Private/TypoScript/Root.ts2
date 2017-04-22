@@ -1,3 +1,3 @@
-prototype(CV.Lipsum:Text) < prototype(TYPO3.Neos:Content) {
-    @class = 'CV\\Lipsum\\TypoScript\\LipsumImplementation'
+prototype(Vette.Lipsum:Text) < prototype(Neos.Neos:Content) {
+    @class = 'Vette\\Lipsum\\Fusion\\LipsumImplementation'
 }

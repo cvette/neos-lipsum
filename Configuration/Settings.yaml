@@ -1,9 +1,9 @@
-TYPO3:
+Neos:
   Neos:
-    typoScript:
+    fusion:
       autoInclude:
-        'CV.Lipsum': TRUE
+        'Vette.Lipsum': TRUE
     userInterface:
       translation:
         autoInclude:
-          'CV.Lipsum': ['NodeTypes/*']
+          'Vette.Lipsum': ['NodeTypes/*']

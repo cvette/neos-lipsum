@@ -1,6 +1,6 @@
-'CV.Lipsum:Text':
+'Vette.Lipsum:Text':
   superTypes:
-    'TYPO3.Neos:Content': TRUE
+    'Neos.Neos:Content': TRUE
   ui:
     label: 'Lorem Ipsum'
     group: 'general'
@@ -56,7 +56,7 @@
         reloadIfChanged: TRUE
         inspector:
           group: 'loremipsum'
-          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+          editor: 'Neos.Neos/Inspector/Editors/SelectBoxEditor'
           editorOptions:
             values:
               left:
