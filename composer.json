@@ -13,8 +13,8 @@
         }
 	],
 	"require": {
-		"neos/neos": "~3.0.0",
-        "neos/nodetypes": "~3.0.0"
+		"neos/neos": "~3.0",
+        "neos/nodetypes": "~3.0"
 	},
     "replace": {
         "cvette/lipsum": "self.version"
